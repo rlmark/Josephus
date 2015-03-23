@@ -15,13 +15,16 @@ class Kill (length: Int, start: Int, skip: Int){
       startPoint(circularList.next, start, depth + 1)
     }
   }
-  // maybe move the startPoint function to another class?
 
   // still need to reassign last node's next to itself... and remove things from circle?
   def skipUntilLast(startingNode : Node, skip : Int) : Node = {
+    //advance through list
     for (i <- 1 to skip) {
-      startingNode.next = 
+      startingNode.next
     }
+    // do reassignment here
+
+    // basecase, but I still need to reassign last node to itself...
     if (startingNode.next == startingNode) {
       startingNode
     } else {
