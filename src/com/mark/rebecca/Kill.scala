@@ -5,37 +5,42 @@ class Kill (length: Int, start: Int, skip: Int){
   var circularList = new CircularList( length ).makeList
 
   // the start function should do cycle detection and return the node whose value is = to integer
-  def startPoint(circularList : Node, start : Int, depth : Int ) : Node = {
+  def startPoint(circularList : Node, depth : Int ) : Node = {
     if (depth > length) {
       throw new IllegalArgumentException("Hey that start point is not in the list.")
     }
     if (circularList.value == start) {
       return circularList
     } else {
-      startPoint(circularList.next, start, depth + 1)
+      startPoint(circularList.next, depth + 1)
     }
   }
 
-  // still need to reassign last node's next to itself... and remove things from circle?
-  // maybe a way to treat startingNode as a var in signature?
-  def skipUntilLast( startingNode : Node, skip : Int) : Node = {
-   // startingNode needs to be mutatable, so reassign to var
+  // The skip function
+  def lastManStanding( startingNode : Node) : Node = {
+
+   // startingNode needs to be mutable, so reassign to var
     var variableNode = startingNode
+    println(variableNode.value + " initial val for funct")
 
     // advance through list and return the node to kill off.
     for (i <- 1 to skip) {
+      println(variableNode.value + " at start of for loop")
       variableNode = variableNode.next
-    } yield variableNode
+      println(variableNode.value + " at end of for loop")
+    }
 
     // remove the person by resetting the next pointer to skip them.
-    // reassign startingNode to the person after the removal.
+    println(variableNode.next.value + " SKIPPED")
     variableNode.next = variableNode.next.next
 
-    // basecase, but I still need to reassign last node to itself...
+    // base case
     if (variableNode.next == variableNode) {
+      println(variableNode.value + " final")
       variableNode
     } else {
-      skipUntilLast(variableNode , skip)
+      lastManStanding(variableNode)
     }
   }
 }
+
